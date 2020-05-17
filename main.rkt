@@ -25,6 +25,15 @@
 (module+ test
   (require rackunit))
 
+(provide
+  init
+  tail
+  sliding
+  chunks-of
+  scanl
+  scanr
+  repeat)
+
 ; FUNCTION init
 (define (init lst)
   (take lst (- (length lst) 1)))
