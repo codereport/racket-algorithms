@@ -7,4 +7,4 @@
 
 @defmodule[algorithms]
 
-Package Description Here
+A package containing many useful algorithms (borrowed from many other programming languages).
