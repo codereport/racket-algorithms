@@ -1,5 +1,6 @@
 #lang scribble/manual
-@(require (for-label algorithms))
+@(require (for-label racket
+                     (only-in algorithms)))
 
 @title{algorithms}
 @author{Conor Hoekstra}
