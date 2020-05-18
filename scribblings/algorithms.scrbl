@@ -48,5 +48,7 @@ A package containing many useful algorithms (borrowed from many other programmin
 @defproc[(tail [lst (list?)]) list?]{
     Return all the elements of a list except the first one. 
     
+    Note: this is the same as Racket's @racket[cdr].
+
     This algorithm comes from Haskell's @hyperlink["https://hackage.haskell.org/package/base-4.14.0.0/docs/Prelude.html#v:tail"]{tail}.
 }

@@ -40,7 +40,7 @@
 
 ; FUNCTION tail
 (define (tail lst)
-  (drop lst 1))
+  (cdr lst))
 
 ; FUNCTION sliding
 (define (sliding lst size [step 1])
@@ -84,4 +84,7 @@
   ;; or with `raco test`. The code here does not run when this file is
   ;; required by another module.
 
-  (check-equal? (+ 2 2) 4))
+  ;; Unit tests for tail
+  (check-equal? (tail (range 3)) '(1 2))
+  (check-equal? (tail (range 4)) '(1 2 3))
+  (check-equal? (tail '(10 9))   '(9)))
