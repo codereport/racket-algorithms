@@ -26,38 +26,41 @@
   (require rackunit))
 
 (provide
-  init
-  tail
-  sliding
+  adjacent-map
   chunks-of
+  init
+  repeat
   scanl
   scanr
-  repeat)
+  sliding
+  tail
+  zip
+  zip-with)
 
-; FUNCTION init
+
+(define (adjacent-map lst f)
+    (zip-with f (init lst) (tail lst)))
+
+
 (define (init lst)
   (take lst (- (length lst) 1)))
 
-; FUNCTION tail
+
 (define (tail lst)
   (cdr lst))
 
-; FUNCTION sliding
+
 (define (sliding lst size [step 1])
   (if (>= size (length lst))
       (list lst)
       (append (list (take lst size))
               (sliding (drop lst step) size step))))
 
-; FUNCTION chunks-of
+
 (define (chunks-of lst k)
   (sliding lst k k))
 
-; FUNCTION chunk-by
-; TODO
 
-; FUNCTION scanl
-; TODO optimize
 (define (scanl proc lst)
   (foldl
    (λ (val acc)
@@ -65,7 +68,7 @@
    (list (first lst))
    (rest lst)))
 
-; FUNCTION scanr
+
 ; TODO optimize
 (define (scanr proc lst)
   (foldr
@@ -74,17 +77,42 @@
    (list (last lst))
    (init lst)))
 
-; FUNCTION repeat
-; is `duplicate` or `replicate` or repeat with an overload a better name?
+
 (define (repeat n val)
   (build-list n (const val)))
+
+;; TODO make this variadic
+(define (zip lst lst2)
+  (map list lst lst2))
+
+
+(define (zip-with proc list1 . lists)
+  (apply map proc list1 lists))
+
 
 (module+ test
   ;; Any code in this `test` submodule runs when this file is run using DrRacket
   ;; or with `raco test`. The code here does not run when this file is
   ;; required by another module.
 
+  ;; Unit tests for adjacent-map
+  (check-equal? (adjacent-map (range 5) +) '(1 3 5 7))
+  (check-equal? (adjacent-map (range 5) -) (repeat 4 -1))
+  (check-equal? (adjacent-map (range 5) *) '(0 2 6 12))
+
   ;; Unit tests for tail
   (check-equal? (tail (range 3)) '(1 2))
   (check-equal? (tail (range 4)) '(1 2 3))
-  (check-equal? (tail '(10 9))   '(9)))
+  (check-equal? (tail '(10 9))   '(9))
+  
+  ;; Unit tests for zip
+  (check-equal? (zip '(0 2) '(1 3)) (chunks-of (range 4) 2))
+  (check-equal? (zip '(0 1) '(2 3)) '((0 2) (1 3)))
+
+  ;; Unit tests for zip-with
+  (check-equal? (zip-with + '(0 2) '(1 3)) '(1 5))
+  (check-equal? (zip-with + '(0 1) '(2 3)) '(2 4))
+  (check-equal? (zip-with * '(0 1) '(2 3) '(4 5)) '(0 15))
+  (check-equal? (zip-with - '(0 1) '(2 3) '(4 5)) '(-6 -7))
+  
+  )

@@ -9,6 +9,12 @@
 
 A package containing many useful algorithms (borrowed from many other programming languages).
 
+@defproc[(adjacent-map [lst (list?)] [proc (-> any/c any/c any/c)]) (listof any/c)]{
+    Returns a list of elements after apply @racket[proc] to adjacent elements. 
+
+    This algorithm is similar to Haskell's @hyperlink["https://hackage.haskell.org/package/utility-ht-0.0.15/docs/Data-List-HT.html#v:mapAdjacent"]{mapAdjacent}.
+}
+
 @defproc[(chunks-of [lst (list?)] [k (integer?)]) (listof list?)]{
     Returns a list of lists of @racket[k] elements each. Note that this is a specialization of @racket[sliding] where @racket[size] is equal to @racket[step]. 
     
@@ -48,7 +54,19 @@ A package containing many useful algorithms (borrowed from many other programmin
 @defproc[(tail [lst (list?)]) list?]{
     Return all the elements of a list except the first one. 
     
-    Note: this is the same as Racket's @racket[cdr] and @racket[rest].
+    Note: this is the same as Racket's @racket[cdr] and @racket[rest] and therefore isn't really necessary.
 
     This algorithm comes from Haskell's @hyperlink["https://hackage.haskell.org/package/base-4.14.0.0/docs/Prelude.html#v:tail"]{tail}.
+}
+
+@defproc[(zip [lst (list?)] [lst2 (list?)]) (listof list?)]{
+    Returns a list of corresponding pairs when given two lists.
+
+    This algorithm is similar to Haskell's @hyperlink["https://hackage.haskell.org/package/base-4.14.0.0/docs/Prelude.html#v:zip"]{zip}.
+}
+
+@defproc[(zip-with [proc (-> any/c ... any/c)] [lst (list?)] ...) (listof any/c)]{
+    Returns a list after zipping together the variadic number of @racket[lst]s and applying @racket[proc] to each of the "zipped together" elements. 
+
+    This algorithm is similar to Haskell's @hyperlink["https://hackage.haskell.org/package/base-4.14.0.0/docs/Prelude.html#v:zipWith"]{zipWith}.
 }
