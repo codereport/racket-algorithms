@@ -30,6 +30,7 @@
   chunks-of
   init
   repeat
+  product
   scanl
   scanr
   sliding
@@ -49,6 +50,10 @@
 
 (define (init lst)
   (take lst (- (length lst) 1)))
+
+
+(define (product lst)
+  (foldl * 1 lst))
 
 
 (define (repeat n val)
@@ -105,6 +110,11 @@
   (check-equal? (adjacent-map (range 5) +) '(1 3 5 7))
   (check-equal? (adjacent-map (range 5) -) (repeat 4 -1))
   (check-equal? (adjacent-map (range 5) *) '(0 2 6 12))
+
+  ;; Unit tests for product
+  (check-equal? (product '(3 2 1))            6)
+  (check-equal? (product (range 1 11))  3628800)
+  (check-equal? (product (range 1 6))       120)
 
   ;; Unit tests for repeat
   (check-equal? (repeat 3 1) '(1 1 1))

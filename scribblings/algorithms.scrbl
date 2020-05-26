@@ -27,6 +27,10 @@ A package containing many useful algorithms (borrowed from many other programmin
     This algorithm comes from Haskell's @hyperlink["https://hackage.haskell.org/package/base-4.14.0.0/docs/Prelude.html#v:init"]{init}.
 }
 
+@defproc[(product [lst (listof Real)]) Real]{
+    Returns the product of the elements in @racket[lst].
+}
+
 @defproc[(repeat [n (integer?)] [val (integer?)]) list?]{
     Returns a list of @racket[val] repeated @racket[n] times.
 
