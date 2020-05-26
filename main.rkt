@@ -42,12 +42,16 @@
     (zip-with f (init lst) (tail lst)))
 
 
+(define (chunks-of lst k)
+  (sliding lst k k))
+
+
 (define (init lst)
   (take lst (- (length lst) 1)))
 
 
-(define (tail lst)
-  (cdr lst))
+(define (repeat n val)
+  (build-list n (const val)))
 
 
 (define (sliding lst size [step 1])
@@ -55,10 +59,6 @@
       (list lst)
       (append (list (take lst size))
               (sliding (drop lst step) size step))))
-
-
-(define (chunks-of lst k)
-  (sliding lst k k))
 
 
 (define (scanl proc lst)
@@ -78,8 +78,9 @@
    (init lst)))
 
 
-(define (repeat n val)
-  (build-list n (const val)))
+(define (tail lst)
+  (cdr lst))
+
 
 ;; TODO make this variadic
 (define (zip lst lst2)
