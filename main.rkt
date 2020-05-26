@@ -51,7 +51,7 @@
 
 
 (define (repeat n val)
-  (build-list n (const val)))
+  (make-list n val))
 
 
 (define (sliding lst size [step 1])
@@ -104,6 +104,8 @@
   ;; Unit tests for repeat
   (check-equal? (repeat 3 1) '(1 1 1))
   (check-equal? (repeat 4 2) '(2 2 2 2))
+  (check-equal? (repeat 2 "abc") '("abc" "abc"))
+  (check-equal? (repeat 2 '(1 2)) '((1 2) (1 2)))
 
   ;; Unit tests for tail
   (check-equal? (tail (range 3)) '(1 2))
