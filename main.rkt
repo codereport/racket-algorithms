@@ -101,6 +101,10 @@
   (check-equal? (adjacent-map (range 5) -) (repeat 4 -1))
   (check-equal? (adjacent-map (range 5) *) '(0 2 6 12))
 
+  ;; Unit tests for repeat
+  (check-equal? (repeat 3 1) '(1 1 1))
+  (check-equal? (repeat 4 2) '(2 2 2 2))
+
   ;; Unit tests for tail
   (check-equal? (tail (range 3)) '(1 2))
   (check-equal? (tail (range 4)) '(1 2 3))
