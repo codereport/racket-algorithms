@@ -33,6 +33,7 @@
   scanl
   scanr
   sliding
+  sum
   tail
   zip
   zip-with)
@@ -78,6 +79,10 @@
    (init lst)))
 
 
+(define (sum lst)
+  (foldl + 0 lst))
+
+
 (define (tail lst)
   (cdr lst))
 
@@ -106,6 +111,11 @@
   (check-equal? (repeat 4 2) '(2 2 2 2))
   (check-equal? (repeat 2 "abc") '("abc" "abc"))
   (check-equal? (repeat 2 '(1 2)) '((1 2) (1 2)))
+
+  ;; Unit tests for sum
+  (check-equal? (sum '(3 2 1))     6)
+  (check-equal? (sum (range 11))  55)
+  (check-equal? (sum (range 1 7)) 21)
 
   ;; Unit tests for tail
   (check-equal? (tail (range 3)) '(1 2))
