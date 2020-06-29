@@ -30,17 +30,20 @@
   all?
   any?
   chunks-of
+  increasing?
   init
   repeat
   product
   scanl
   scanr
   sliding
+  sorted?
   sum
   tail
   zip
   zip-with)
 
+(require threading)
 
 (define (adjacent-map lst f)
   (zip-with f (init lst) (tail lst)))
@@ -56,6 +59,12 @@
 
 (define (chunks-of lst k)
   (sliding lst k k))
+
+
+(define (increasing? lst)
+  (~>> lst
+       (adjacent-map _ <)
+       all?))
 
 
 (define (init lst)
@@ -92,6 +101,12 @@
      (append (list (proc val (first acc))) acc))
    (list (last lst))
    (init lst)))
+
+
+(define (sorted? lst)
+  (~>> lst
+       (adjacent-map _ <=)
+       all?))
 
 
 (define (sum lst)
@@ -135,6 +150,13 @@
   (check-equal? (any? (map positive? '(-1 -2 3))) #t)
   (check-equal? (any? (map positive? (range 2))) #t)
 
+  ;; Unit tests for increasing?
+  (check-equal? (increasing? '(1)) #t)
+  (check-equal? (increasing? '(1 2)) #t)
+  (check-equal? (increasing? '(1 1)) #f)
+  (check-equal? (increasing? (range 10)) #t)
+  (check-equal? (increasing? '(2 1 2 1)) #f)
+
   ;; Unit tests for product
   (check-equal? (product '(3 2 1))            6)
   (check-equal? (product (range 1 11))  3628800)
@@ -145,6 +167,13 @@
   (check-equal? (repeat 4 2) '(2 2 2 2))
   (check-equal? (repeat 2 "abc") '("abc" "abc"))
   (check-equal? (repeat 2 '(1 2)) '((1 2) (1 2)))
+
+  ;; Unit tests for sorted?
+  (check-equal? (sorted? '(1)) #t)
+  (check-equal? (sorted? '(1 2)) #t)
+  (check-equal? (sorted? '(1 1)) #t)
+  (check-equal? (sorted? (range 10)) #t)
+  (check-equal? (sorted? '(2 1 2 1)) #f)
 
   ;; Unit tests for sum
   (check-equal? (sum '(3 2 1))     6)

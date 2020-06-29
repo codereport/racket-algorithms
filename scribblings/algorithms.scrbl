@@ -33,6 +33,10 @@ A package containing many useful algorithms (borrowed from many other programmin
     This algorithms is the same as Haskell's @hyperlink["https://hackage.haskell.org/package/split-0.2.3.4/docs/Data-List-Split.html#v:chunksOf"]{chunksOf}.
 }
 
+@defproc[(increasing? [lst (list?)]) (boolean?)]{
+    Returns @racket[#t] if all the elements of @racket[lst] are strictly increasing, otherwise returns @racket[#f].
+}
+
 @defproc[(init [lst (list?)]) list?]{
     Return all the elements of a list except the last one. 
     
@@ -65,6 +69,12 @@ A package containing many useful algorithms (borrowed from many other programmin
     Returns a list of lists of @racket[size] elements each, at offset @racket[step] apart. Note that @racket[step] is defaulted to 1. 
     
     This algorithms is the same as Haskell's @hyperlink["https://hackage.haskell.org/package/split-0.2.3.4/docs/Data-List-Split.html#v:divvy"]{divvy}, Clojure's @hyperlink["https://clojuredocs.org/clojure.core/partition"]{partition} and D's @hyperlink["https://dlang.org/library/std/range/slide.html"]{slide}.
+}
+
+@defproc[(sorted? [lst (list?)]) (boolean?)]{
+    Returns @racket[#t] if all the elements of @racket[lst] are in sorted order, otherwise returns @racket[#f].
+
+    This algorithm is similar to C++'s @hyperlink["https://en.cppreference.com/w/cpp/algorithm/is_sorted"]{std::is_sorted}.
 }
 
 @defproc[(sum [lst (listof Real)]) Real]{
