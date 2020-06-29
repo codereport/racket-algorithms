@@ -43,7 +43,6 @@
   zip
   zip-with)
 
-(require threading)
 
 (define (adjacent-map lst f)
   (zip-with f (init lst) (tail lst)))
@@ -62,9 +61,7 @@
 
 
 (define (increasing? lst)
-  (~>> lst
-       (adjacent-map _ <)
-       all?))
+  (all? (adjacent-map lst <)))
 
 
 (define (init lst)
@@ -104,9 +101,7 @@
 
 
 (define (sorted? lst)
-  (~>> lst
-       (adjacent-map _ <=)
-       all?))
+  (all? (adjacent-map lst <=)))
 
 
 (define (sum lst)
