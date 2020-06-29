@@ -15,6 +15,18 @@ A package containing many useful algorithms (borrowed from many other programmin
     This algorithm is similar to Haskell's @hyperlink["https://hackage.haskell.org/package/utility-ht-0.0.15/docs/Data-List-HT.html#v:mapAdjacent"]{mapAdjacent}.
 }
 
+@defproc[(all? [lst (listof boolean?)]) (boolean?)]{
+    Returns @racket[#t] if all the elements of @racket[lst] are @racket[#t], otherwise returns @racket[#f].
+
+    This algorithm is similar to Python's @hyperlink["https://docs.python.org/3/library/functions.html#all"]{all}.
+}
+
+@defproc[(any? [lst (listof boolean?)]) (boolean?)]{
+    Returns @racket[#t] if any of the elements of @racket[lst] are @racket[#t], otherwise returns @racket[#f].
+
+    This algorithm is similar to Python's @hyperlink["https://docs.python.org/3/library/functions.html#any"]{any}.
+}
+
 @defproc[(chunks-of [lst (list?)] [k (integer?)]) (listof list?)]{
     Returns a list of lists of @racket[k] elements each. Note that this is a specialization of @racket[sliding] where @racket[size] is equal to @racket[step]. 
     

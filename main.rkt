@@ -27,6 +27,8 @@
 
 (provide
   adjacent-map
+  all?
+  any?
   chunks-of
   init
   repeat
@@ -41,7 +43,15 @@
 
 
 (define (adjacent-map lst f)
-    (zip-with f (init lst) (tail lst)))
+  (zip-with f (init lst) (tail lst)))
+
+
+(define (all? lst)
+  (andmap identity lst))
+
+
+(define (any? lst)
+  (ormap identity lst))
 
 
 (define (chunks-of lst k)
@@ -110,6 +120,20 @@
   (check-equal? (adjacent-map (range 5) +) '(1 3 5 7))
   (check-equal? (adjacent-map (range 5) -) (repeat 4 -1))
   (check-equal? (adjacent-map (range 5) *) '(0 2 6 12))
+
+  ;; Unit tests for all?
+  (check-equal? (all? '(#t)) #t)
+  (check-equal? (all? '(#t #t #t #t)) #t)
+  (check-equal? (all? '(#t #t #t #f)) #f)
+  (check-equal? (all? (map positive? '(1 2 3))) #t)
+  (check-equal? (all? (map positive? (range 3))) #f)
+
+  ;; Unit tests for any?
+  (check-equal? (any? '(#t)) #t)
+  (check-equal? (any? '(#f #f #f #t)) #t)
+  (check-equal? (any? '(#f #f)) #f)
+  (check-equal? (any? (map positive? '(-1 -2 3))) #t)
+  (check-equal? (any? (map positive? (range 2))) #t)
 
   ;; Unit tests for product
   (check-equal? (product '(3 2 1))            6)
