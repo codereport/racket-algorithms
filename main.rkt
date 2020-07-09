@@ -132,6 +132,7 @@
   (check-equal? (adjacent-map (range 5) *) '(0 2 6 12))
 
   ;; Unit tests for all?
+  (check-equal? (all? '()) #t)
   (check-equal? (all? '(#t)) #t)
   (check-equal? (all? '(#t #t #t #t)) #t)
   (check-equal? (all? '(#t #t #t #f)) #f)
@@ -139,6 +140,7 @@
   (check-equal? (all? (map positive? (range 3))) #f)
 
   ;; Unit tests for any?
+  (check-equal? (any? '()) #f)
   (check-equal? (any? '(#t)) #t)
   (check-equal? (any? '(#f #f #f #t)) #t)
   (check-equal? (any? '(#f #f)) #f)
