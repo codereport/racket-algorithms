@@ -30,6 +30,7 @@
   all?
   any?
   chunks-of
+  generate
   increasing?
   init
   repeat
@@ -58,6 +59,10 @@
 
 (define (chunks-of lst k)
   (sliding lst k k))
+
+
+(define (generate n proc)
+  (for/list ((_ n)) (proc)))
 
 
 (define (increasing? lst)
@@ -146,6 +151,10 @@
   (check-equal? (any? '(#f #f)) #f)
   (check-equal? (any? (map positive? '(-1 -2 3))) #t)
   (check-equal? (any? (map positive? (range 2))) #t)
+
+  ;; Unit tests for generate
+  (check-equal? (generate 3 (λ () 1)) '(1 1 1))
+  (check-equal? (generate 0 (λ () 1)) '())
 
   ;; Unit tests for increasing?
   (check-equal? (increasing? '(1)) #t)

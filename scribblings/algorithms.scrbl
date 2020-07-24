@@ -33,6 +33,12 @@ A package containing many useful algorithms (borrowed from many other programmin
     This algorithms is the same as Haskell's @hyperlink["https://hackage.haskell.org/package/split-0.2.3.4/docs/Data-List-Split.html#v:chunksOf"]{chunksOf}.
 }
 
+@defproc[(generate [n (integer?)] [proc (-> any/c)]) (listof any/c)]{
+    Returns a list of @racket[n] elements generated from invoking @racket[proc] @racket[n] times.
+
+    This algorithm is similar to C++'s @hyperlink["https://en.cppreference.com/w/cpp/algorithm/generate"]{generate}.
+}
+
 @defproc[(increasing? [lst (list?)]) (boolean?)]{
     Returns @racket[#t] if all the elements of @racket[lst] are strictly increasing, otherwise returns @racket[#f].
 }
