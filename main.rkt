@@ -70,7 +70,7 @@
 
 
 (define (init lst)
-  (take lst (- (length lst) 1)))
+  (drop-right lst 1))
 
 
 (define (product lst)
@@ -162,6 +162,10 @@
   (check-equal? (increasing? '(1 1)) #f)
   (check-equal? (increasing? (range 10)) #t)
   (check-equal? (increasing? '(2 1 2 1)) #f)
+
+  ;;Unit tests for init
+  (check-equal? (init '(1 2 3 4)) '(1 2 3))
+  (check-equal? (init '(1)) '())
 
   ;; Unit tests for product
   (check-equal? (product '(3 2 1))            6)
