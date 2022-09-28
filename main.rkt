@@ -46,7 +46,7 @@
   zip-with)
 
 
-(define (adjacent-map lst f)
+(define (adjacent-map f lst)
   (zip-with f (init lst) (tail lst)))
 
 
@@ -67,7 +67,7 @@
 
 
 (define (increasing? lst)
-  (all? (adjacent-map lst <)))
+  (all? (adjacent-map < lst)))
 
 
 (define (init lst)
@@ -82,11 +82,18 @@
   (make-list n val))
 
 
+(define (replicate lst lst2)
+  (flatten (zip-with make-list lst lst2)))
+
+
 (define (sliding lst size [step 1])
-  (if (>= size (length lst))
-      (list lst)
-      (append (list (take lst size))
-              (sliding (drop lst step) size step))))
+  (define (tail-call lst L)
+    (if (>= size L)
+        (list lst)
+        (cons (take lst size)
+              (tail-call (drop lst step)
+                         (- L step)))))
+  (tail-call lst (length lst)))
 
 
 (define (scanl proc lst)
@@ -107,7 +114,7 @@
 
 
 (define (sorted? lst)
-  (all? (adjacent-map lst <=)))
+  (all? (adjacent-map <= lst)))
 
 
 (define (sum lst)
@@ -133,9 +140,9 @@
   ;; required by another module.
 
   ;; Unit tests for adjacent-map
-  (check-equal? (adjacent-map (range 5) +) '(1 3 5 7))
-  (check-equal? (adjacent-map (range 5) -) (repeat 4 -1))
-  (check-equal? (adjacent-map (range 5) *) '(0 2 6 12))
+  (check-equal? (adjacent-map + (range 5)) '(1 3 5 7))
+  (check-equal? (adjacent-map - (range 5)) (repeat 4 -1))
+  (check-equal? (adjacent-map * (range 5)) '(0 2 6 12))
 
   ;; Unit tests for all?
   (check-equal? (all? '()) #t)
@@ -178,6 +185,13 @@
   (check-equal? (repeat 4 2) '(2 2 2 2))
   (check-equal? (repeat 2 "abc") '("abc" "abc"))
   (check-equal? (repeat 2 '(1 2)) '((1 2) (1 2)))
+
+  ;; Unit tests for replicate
+  (check-equal? (replicate '(1 0 1) '(a b c)) '(a c))
+  (check-equal? (replicate '(0 1 2) '(a b c)) '(b c c))
+  (check-equal? (replicate (range 5) '(a b c d e)) '(b c c d d d e e e e))
+  (check-equal? (replicate (repeat 5 2) '(a b c d e)) '(a a b b c c d d e e))
+  (check-equal? (replicate (repeat 5 3) '(a b c d e)) '(a a a b b b c c c d d d e e e))
 
   ;; Unit tests for sorted?
   (check-equal? (sorted? '(1)) #t)
