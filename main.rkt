@@ -34,6 +34,7 @@
   increasing?
   init
   repeat
+  replicate
   product
   scanl
   scanr
