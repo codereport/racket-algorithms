@@ -184,9 +184,10 @@
 
   ;; Unit tests for replicate
   (check-equal? (replicate '(1 0 1) '(a b c)) '(a c))
+  (check-equal? (replicate '(0 1 2) '(a b c)) '(b c c))
+  (check-equal? (replicate (range 5) '(a b c d e)) '(b c c d d d e e e e))
   (check-equal? (replicate (repeat 5 2) '(a b c d e)) '(a a b b c c d d e e))
   (check-equal? (replicate (repeat 5 3) '(a b c d e)) '(a a a b b b c c c d d d e e e))
-  (check-equal? (replicate (range 5) '(a b c d e)) '(b c c d d d e e e e))
 
   ;; Unit tests for sorted?
   (check-equal? (sorted? '(1)) #t)
