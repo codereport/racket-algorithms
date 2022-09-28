@@ -86,10 +86,13 @@
 
 
 (define (sliding lst size [step 1])
-  (if (>= size (length lst))
-      (list lst)
-      (append (list (take lst size))
-              (sliding (drop lst step) size step))))
+  (define (tail-call lst L)
+    (if (>= size L)
+        (list lst)
+        (cons (take lst size)
+              (tail-call (drop lst step)
+                         (- L step)))))
+  (tail-call lst (length lst)))
 
 
 (define (scanl proc lst)
