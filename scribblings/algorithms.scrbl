@@ -9,16 +9,16 @@
 
 A package containing many useful algorithms (borrowed from many other programming languages).
 
-@defproc[(adjacent-map [lst list?] [proc (-> any/c any/c any/c)]) (listof any/c)]{
+@defproc[(adjacent-map [proc (-> any/c any/c any/c)]) [lst list?] (listof any/c)]{
 @margin-note{This algorithm is similar to Haskell's
 @hyperlink["https://hackage.haskell.org/package/utility-ht-0.0.15/docs/Data-List-HT.html#v:mapAdjacent"]{mapAdjacent}.}
 Returns a list of elements after apply @racket[proc] to adjacent elements.
 
 Examples:
 @codeblock|{
-  > (adjacent-map '(1 2 3 4 5 6) *)
+  > (adjacent-map * '(1 2 3 4 5 6))
   '(2 6 12 20 30)
-  > (adjacent-map '(1 2 1 3 4 3) <)
+  > (adjacent-map  < '(1 2 1 3 4 3))
   '(#t #f #t #t #f)
 }|}
 
@@ -113,7 +113,7 @@ Examples:
   24
 }|}
 
-@defproc[(repeat [n exact-nonnegative-integer?] [val integer?]) list?]{
+@defproc[(repeat [n exact-nonnegative-integer?] [val any/c?]) list?]{
 @margin-note{This algorithms is the same as Clojures's
 @hyperlink["https://clojuredocs.org/clojure.core/repeat"]{repeat} and D's
 @hyperlink["https://dlang.org/library/std/range/repeat.html#0"]{repeat}.}
@@ -125,6 +125,19 @@ Examples:
   '(#t #t #t #t #t)
   > (repeat 5 '())
   '(() () () () ())
+}|}
+
+@defproc[(replicate [lst (listof exact-nonnegative-integer?)] [lst2 list?]) list?]{
+@margin-note{This algorithms is the similar to APL's
+@hyperlink["https://microapl.com/apl_help/ch_020_020_840.htm"]{replicate.}}
+Returns a list of of the @racket[lst2] values each repeated n times where n is the corresponding element in @racket[lst].
+
+Examples:
+@codeblock|{
+  > (replicate '(1 0 1) '(a b c))
+  '(a c))
+  > (replicate '(0 1 2) '(a b c))
+  '(b c c))
 }|}
 
 @defproc[(scanl [lst list?]) list?]{
