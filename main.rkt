@@ -45,7 +45,7 @@
   zip-with)
 
 
-(define (adjacent-map lst f)
+(define (adjacent-map f lst)
   (zip-with f (init lst) (tail lst)))
 
 
@@ -66,7 +66,7 @@
 
 
 (define (increasing? lst)
-  (all? (adjacent-map lst <)))
+  (all? (adjacent-map < lst)))
 
 
 (define (init lst)
@@ -110,7 +110,7 @@
 
 
 (define (sorted? lst)
-  (all? (adjacent-map lst <=)))
+  (all? (adjacent-map <= lst)))
 
 
 (define (sum lst)
@@ -136,9 +136,9 @@
   ;; required by another module.
 
   ;; Unit tests for adjacent-map
-  (check-equal? (adjacent-map (range 5) +) '(1 3 5 7))
-  (check-equal? (adjacent-map (range 5) -) (repeat 4 -1))
-  (check-equal? (adjacent-map (range 5) *) '(0 2 6 12))
+  (check-equal? (adjacent-map + (range 5)) '(1 3 5 7))
+  (check-equal? (adjacent-map - (range 5)) (repeat 4 -1))
+  (check-equal? (adjacent-map * (range 5)) '(0 2 6 12))
 
   ;; Unit tests for all?
   (check-equal? (all? '()) #t)
