@@ -9,7 +9,7 @@
 
 A package containing many useful algorithms (borrowed from many other programming languages).
 
-@defproc[(adjacent-map [proc (-> any/c any/c any/c)]) [lst list?] (listof any/c)]{
+@defproc[(adjacent-map [proc (-> any/c any/c any/c)] [lst list?]) (listof any/c)]{
 @margin-note{This algorithm is similar to Haskell's
 @hyperlink["https://hackage.haskell.org/package/utility-ht-0.0.15/docs/Data-List-HT.html#v:mapAdjacent"]{mapAdjacent}.}
 Returns a list of elements after apply @racket[proc] to adjacent elements.
@@ -135,9 +135,9 @@ Returns a list of of the @racket[lst2] values each repeated n times where n is t
 Examples:
 @codeblock|{
   > (replicate '(1 0 1) '(a b c))
-  '(a c))
+  '(a c)
   > (replicate '(0 1 2) '(a b c))
-  '(b c c))
+  '(b c c)
 }|}
 
 @defproc[(scanl [lst list?]) list?]{
