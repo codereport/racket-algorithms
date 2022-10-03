@@ -87,13 +87,14 @@
 
 
 (define (sliding lst size [step 1])
-  (define (tail-call lst L)
-    (if (>= size L)
+  (define (tail-call lst)
+    (if (>= size (length lst))
         (list lst)
         (cons (take lst size)
-              (tail-call (drop lst step)
-                         (- L step)))))
-  (tail-call lst (length lst)))
+              (tail-call (drop lst step)))))
+  (if (>= step (length lst))
+      (error "step has to be smaller then length of the list")
+      (tail-call lst)))
 
 
 (define (scanl proc lst)
@@ -193,6 +194,13 @@
   (check-equal? (replicate (repeat 5 2) '(a b c d e)) '(a a b b c c d d e e))
   (check-equal? (replicate (repeat 5 3) '(a b c d e)) '(a a a b b b c c c d d d e e e))
 
+  ;; Unit tests for sliding
+  (check-equal? (sliding '(1 2 3 4) 2) '((1 2) (2 3) (3 4)))
+  (check-equal? (sliding '(1 2 3 4 5) 2 3) '((1 2) (4 5)))
+  (check-exn #rx"step has to be smaller then length of the list" (thunk (sliding '(1 2 3) 1 3)))
+  (check-exn #rx"step has to be smaller then length of the list" (thunk (sliding '(1 2 3) 1 4)))
+
+
   ;; Unit tests for sorted?
   (check-equal? (sorted? '(1)) #t)
   (check-equal? (sorted? '(1 2)) #t)
@@ -209,7 +217,7 @@
   (check-equal? (tail (range 3)) '(1 2))
   (check-equal? (tail (range 4)) '(1 2 3))
   (check-equal? (tail '(10 9))   '(9))
-  
+
   ;; Unit tests for zip
   (check-equal? (zip '(0 2) '(1 3)) (chunks-of (range 4) 2))
   (check-equal? (zip '(0 1) '(2 3)) '((0 2) (1 3)))
@@ -218,6 +226,4 @@
   (check-equal? (zip-with + '(0 2) '(1 3)) '(1 5))
   (check-equal? (zip-with + '(0 1) '(2 3)) '(2 4))
   (check-equal? (zip-with * '(0 1) '(2 3) '(4 5)) '(0 15))
-  (check-equal? (zip-with - '(0 1) '(2 3) '(4 5)) '(-6 -7))
-  
-  )
+  (check-equal? (zip-with - '(0 1) '(2 3) '(4 5)) '(-6 -7)))
