@@ -169,11 +169,13 @@ Examples:
 }|}
 
 @defproc[(sliding [lst list?] [size exact-nonnegative-integer?] [step exact-nonnegative-integer? 1]) (listof list?)]{
-@margin-note{This algorithms is the same as Haskell's
+@margin-note{This algorithm is the same as Haskell's
 @hyperlink["https://hackage.haskell.org/package/split-0.2.3.4/docs/Data-List-Split.html#v:divvy"]{divvy}, Clojure's
 @hyperlink["https://clojuredocs.org/clojure.core/partition"]{partition} and D's
 @hyperlink["https://dlang.org/library/std/range/slide.html"]{slide}.}
 Returns a list of lists of @racket[size] elements each, at offset @racket[step] apart.
+
+@racket[step] has to be smaller then length of the @racket[lst].
 
 Examples:
 @codeblock|{
