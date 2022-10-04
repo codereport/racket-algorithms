@@ -78,8 +78,7 @@
   (foldl * 1 lst))
 
 
-(define (repeat n val)
-  (make-list n val))
+(define repeat make-list)
 
 
 (define (replicate lst lst2)
@@ -122,8 +121,7 @@
   (foldl + 0 lst))
 
 
-(define (tail lst)
-  (cdr lst))
+(define tail cdr)
 
 
 ;; TODO make this variadic
@@ -199,7 +197,6 @@
   (check-equal? (sliding '(1 2 3 4 5) 2 3) '((1 2) (4 5)))
   (check-exn #rx"step has to be smaller then length of the list" (thunk (sliding '(1 2 3) 1 3)))
   (check-exn #rx"step has to be smaller then length of the list" (thunk (sliding '(1 2 3) 1 4)))
-
 
   ;; Unit tests for sorted?
   (check-equal? (sorted? '(1)) #t)
