@@ -159,6 +159,10 @@
   (check-equal? (any? (map positive? '(-1 -2 3))) #t)
   (check-equal? (any? (map positive? (range 2))) #t)
 
+  ;; Unit tests for chunks-of
+  (check-equal? (chunks-of '(1 2 1 3 4 3) 2) '((1 2) (1 3) (4 3)))
+  (check-equal? (chunks-of '(1 2 1 3 4 3) 3) '((1 2 1) (3 4 3)))
+
   ;; Unit tests for generate
   (check-equal? (generate 3 (λ () 1)) '(1 1 1))
   (check-equal? (generate 0 (λ () 1)) '())
@@ -191,6 +195,14 @@
   (check-equal? (replicate (range 5) '(a b c d e)) '(b c c d d d e e e e))
   (check-equal? (replicate (repeat 5 2) '(a b c d e)) '(a a b b c c d d e e))
   (check-equal? (replicate (repeat 5 3) '(a b c d e)) '(a a a b b b c c c d d d e e e))
+
+  ;; Unit tests for scanl
+  (check-equal? (scanl + '(1 2 3 4)) '(1 3 6 10))
+  (check-equal? (scanl * '(1 2 3 4)) '(1 2 6 24))
+
+  ;; Unit tests for scanr
+  (check-equal? (scanr + '(1 2 3 4)) '(10 9 7 4))
+  (check-equal? (scanr * '(1 2 3 4)) '(24 24 12 4))
 
   ;; Unit tests for sliding
   (check-equal? (sliding '(1 2 3 4) 2) '((1 2) (2 3) (3 4)))
