@@ -226,10 +226,14 @@ Examples:
   '()
 }|}
 
-@defproc[(zip [lst list?] [lst2 list?]) (listof list?)]{
+@defproc[(zip [lst list?] ...) (listof list?)]{
 @margin-note{This algorithm is similar to Haskell's
-@hyperlink["https://hackage.haskell.org/package/base-4.14.0.0/docs/Prelude.html#v:zip"]{zip}.}
-Returns a list of corresponding pairs when given two lists.
+@hyperlink["https://hackage.haskell.org/package/base-4.14.0.0/docs/Prelude.html#v:zip"]{zip}
+and Python's @hyperlink["https://docs.python.org/3/library/functions.html#zip"]{zip}.}
+Returns a list of lists of elements from each of lists passed to the procedure.
+
+Another way to think of @racket[zip] is that it turns rows into columns, and columns into rows.
+This is similar to @hyperlink["https://en.wikipedia.org/wiki/Transpose"]{transposing a matrix}.
 
 Examples:
 @codeblock|{
@@ -237,6 +241,8 @@ Examples:
   '((1 4) (2 5) (3 6))
   > (zip '() '())
   '()
+  > (zip '(0 1) '(2 3) '(5 7))
+  '((0 2 5) (1 3 7))
 }|}
 
 @defproc[(zip-with [proc (-> any/c ... any/c)] [lst list?] ...) (listof any/c)]{
