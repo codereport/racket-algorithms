@@ -124,9 +124,8 @@
 (define tail cdr)
 
 
-;; TODO make this variadic
-(define (zip lst lst2)
-  (map list lst lst2))
+(define (zip . lsts)
+  (apply map list lsts))
 
 
 (define (zip-with proc list1 . lists)
@@ -230,6 +229,9 @@
   ;; Unit tests for zip
   (check-equal? (zip '(0 2) '(1 3)) (chunks-of (range 4) 2))
   (check-equal? (zip '(0 1) '(2 3)) '((0 2) (1 3)))
+  (check-equal? (zip '(0 1) '(2 3) '(5 7)) '((0 2 5) (1 3 7)))
+  (check-equal? (zip '() '() '()) '())
+  (check-equal? (zip (range 4)) '((0) (1) (2) (3)))
 
   ;; Unit tests for zip-with
   (check-equal? (zip-with + '(0 2) '(1 3)) '(1 5))
