@@ -124,8 +124,8 @@
 (define tail cdr)
 
 
-(define (zip . lsts)
-  (apply map list lsts))
+(define (zip lst . lsts)
+  (apply map list lst lsts))
 
 
 (define (zip-with proc list1 . lists)
