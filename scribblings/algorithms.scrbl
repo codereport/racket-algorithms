@@ -50,7 +50,8 @@ Examples:
 
 @defproc[(chunks-of [lst list?] [k exact-nonnegative-integer?]) (listof list?)]{
 @margin-note{This algorithms is the same as Haskell's
-@hyperlink["https://hackage.haskell.org/package/split-0.2.3.4/docs/Data-List-Split.html#v:chunksOf"]{chunksOf}.}
+@hyperlink["https://hackage.haskell.org/package/split-0.2.3.4/docs/Data-List-Split.html#v:chunksOf"]{chunksOf}.
+and similar to Python's @hyperlink["https://docs.python.org/3/library/itertools.html#itertools.batched"]{itertools.batched}}
 Returns a list of lists of @racket[k] elements each.
 Note that this is a specialization of @racket[sliding] where @racket[size] is equal to @racket[step].
 
@@ -175,7 +176,7 @@ Examples:
 @hyperlink["https://dlang.org/library/std/range/slide.html"]{slide}.}
 Returns a list of lists of @racket[size] elements each, at offset @racket[step] apart.
 
-@racket[step] has to be smaller then length of the @racket[lst].
+@racket[step] has to be equal to or smaller then length of the @racket[lst].
 
 Examples:
 @codeblock|{
@@ -183,6 +184,8 @@ Examples:
   '((1 2) (2 3) (3 4))
   > (sliding '(1 2 3 4 5) 2 3)
   '((1 2) (4 5))
+  > (sliding '(1 2) 2 2)
+  '((1 2))
 }|}
 
 @defproc[(sorted? [lst list?]) (boolean?)]{
