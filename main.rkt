@@ -91,9 +91,11 @@
         (list lst)
         (cons (take lst size)
               (tail-call (drop lst step)))))
-  (if (>= step (length lst))
-      (error "step has to be smaller then length of the list")
-      (tail-call lst)))
+  (cond
+    [(> step (length lst))
+      (error "step has to be equal to or smaller then length of the list")]
+    [(= step (length lst)) (list lst)]
+    [else (tail-call lst)]))
 
 
 (define (scanl proc lst)
@@ -206,8 +208,11 @@
   ;; Unit tests for sliding
   (check-equal? (sliding '(1 2 3 4) 2) '((1 2) (2 3) (3 4)))
   (check-equal? (sliding '(1 2 3 4 5) 2 3) '((1 2) (4 5)))
-  (check-exn #rx"step has to be smaller then length of the list" (thunk (sliding '(1 2 3) 1 3)))
-  (check-exn #rx"step has to be smaller then length of the list" (thunk (sliding '(1 2 3) 1 4)))
+  (check-equal? (sliding '(1 2) 2 2) '((1 2)))
+  (check-equal? (sliding '(1 2 3) 1 3) '((1 2 3)))
+  (check-exn
+    #rx"step has to be equal to or smaller then length of the list"
+    (thunk (sliding '(1 2 3) 1 4)))
 
   ;; Unit tests for sorted?
   (check-equal? (sorted? '(1)) #t)
