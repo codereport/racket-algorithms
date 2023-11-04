@@ -176,7 +176,7 @@ Examples:
 @hyperlink["https://dlang.org/library/std/range/slide.html"]{slide}.}
 Returns a list of lists of @racket[size] elements each, at offset @racket[step] apart.
 
-@racket[step] has to be equal to or smaller then length of the @racket[lst].
+@racket[step] has to be equal to or smaller than length of the @racket[lst].
 
 Examples:
 @codeblock|{
