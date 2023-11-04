@@ -93,7 +93,7 @@
               (tail-call (drop lst step)))))
   (cond
     [(> step (length lst))
-      (error "step has to be equal to or smaller then length of the list")]
+      (error "step has to be equal to or smaller than length of the list")]
     [(= step (length lst)) (list lst)]
     [else (tail-call lst)]))
 
@@ -211,7 +211,7 @@
   (check-equal? (sliding '(1 2) 2 2) '((1 2)))
   (check-equal? (sliding '(1 2 3) 1 3) '((1 2 3)))
   (check-exn
-    #rx"step has to be equal to or smaller then length of the list"
+    #rx"step has to be equal to or smaller than length of the list"
     (thunk (sliding '(1 2 3) 1 4)))
 
   ;; Unit tests for sorted?
