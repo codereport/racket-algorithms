@@ -103,6 +103,24 @@ Examples:
   '((1 2) (3 4))
 }|}
 
+@defproc[(juxt [proc (procedure?)] ...) procedure?]{
+@margin-note{This algorithm comes from Clojure's
+@hyperlink["https://clojuredocs.org/clojure.core/juxt"]{juxt}.}
+Takes variable number of procedures and returns a procedure that is the juxtaposition
+of those procedures.  The returned procedure takes a variable number of arguments, and
+returns a list containing the result of applying each procedures to the
+arguments.
+
+Examples:
+@codeblock|{
+  > ((juxt first last) '(1 2 3))
+  '(1 3)
+  > ((juxt + *) 1 2 3 4)
+  '(10 24)
+  > ((juxt zip append)  '(1 2 3) '(4 5 6))
+  '(((1 4) (2 5) (3 6)) (1 2 3 4 5 6))
+}|}
+
 @defproc[(product [lst (listof real?)]) real?]{
 Returns the product of the elements in @racket[lst].
 
