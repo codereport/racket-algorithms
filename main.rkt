@@ -33,6 +33,7 @@
   generate
   increasing?
   init
+  juxt
   repeat
   replicate
   product
@@ -73,6 +74,9 @@
 (define (init lst)
   (drop-right lst 1))
 
+(define (juxt . procs)
+  (λ args
+    (map (λ (proc) (apply proc args)) procs)))
 
 (define (product lst)
   (foldl * 1 lst))
@@ -178,6 +182,11 @@
   ;;Unit tests for init
   (check-equal? (init '(1 2 3 4)) '(1 2 3))
   (check-equal? (init '(1)) '())
+
+  ;;Unit tests for juxt
+  (check-equal? ((juxt + *) 2 3) '(5 6))
+  (check-equal? ((juxt first last) '(1 2 3)) '(1 3))
+  (check-equal? ((juxt zip append)  '(1 2 3) '(4 5 6)) '(((1 4) (2 5) (3 6)) (1 2 3 4 5 6)))
 
   ;; Unit tests for product
   (check-equal? (product '(3 2 1))            6)
