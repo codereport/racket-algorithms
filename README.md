@@ -16,3 +16,5 @@
 </p>
 
 A package containing many useful algorithms (borrowed from many other programming languages).
+
+There is a GNU Guile scheme [version of this package](https://guile-algorithms.lajszczak.dev/).
