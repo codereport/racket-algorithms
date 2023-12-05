@@ -9,6 +9,8 @@
 
 A package containing many useful algorithms (borrowed from many other programming languages).
 
+There is a GNU Guile scheme @hyperlink["https://guile-algorithms.lajszczak.dev/"]{version of this package}.
+
 @defproc[(adjacent-map [proc (-> any/c any/c any/c)] [lst list?]) (listof any/c)]{
 @margin-note{This algorithm is similar to Haskell's
 @hyperlink["https://hackage.haskell.org/package/utility-ht-0.0.15/docs/Data-List-HT.html#v:mapAdjacent"]{mapAdjacent}.}
