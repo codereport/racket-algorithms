@@ -50,6 +50,21 @@ Examples:
   #f
 }|}
 
+@defproc[(chunk-by [pred (-> any/c any/c boolean?)] [lst list?]) list?]{
+@margin-note{This algorithm is similar to C++'s
+@hyperlink["https://en.cppreference.com/w/cpp/ranges/chunk_by_view"]{chunk_by_view}.}
+Takes a binary predicate @racket[pred] and a list @racket[lst], and partitions @racket[lst] into sublists (chunks) based
+on the predicate. The list is split between each pair of adjacent elements for which @racket[pred] returns @racket[#f].
+The first element of each such pair belongs to the current chunk, and the second element starts the next chunk.
+
+Examples:
+@codeblock|{
+  > (chunk-by eq? '(1 1 3 2 2))
+  '((1 1) (3) (2 2))
+  > (chunk-by < '(1 2 1 3 4 3))
+  '((1 2) (1 3 4) (3))
+}|}
+
 @defproc[(chunks-of [lst list?] [k exact-nonnegative-integer?]) (listof list?)]{
 @margin-note{This algorithms is the same as Haskell's
 @hyperlink["https://hackage.haskell.org/package/split-0.2.3.4/docs/Data-List-Split.html#v:chunksOf"]{chunksOf}.
