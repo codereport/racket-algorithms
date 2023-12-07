@@ -59,6 +59,15 @@
   (ormap identity lst))
 
 
+(define (chunk-by pred lst)
+  (letrec ([aux (λ (lst chunk result)
+                  (cond [(null? lst) (reverse (cons (reverse chunk) result))]
+                        [(null? (cdr lst)) (reverse (cons (reverse (cons (car lst) chunk)) result))]
+                        [(pred (car lst) (cadr lst)) (aux (cdr lst) (cons (car lst) chunk) result)]
+                        [else (aux (cdr lst) '() (cons (reverse (cons (car lst) chunk)) result))]))])
+    (aux lst '() '())))
+
+
 (define (chunks-of lst k)
   (sliding lst k k))
 
@@ -74,9 +83,11 @@
 (define (init lst)
   (drop-right lst 1))
 
+
 (define (juxt . procs)
   (λ args
     (map (λ (proc) (apply proc args)) procs)))
+
 
 (define (product lst)
   (foldl * 1 lst))
@@ -163,6 +174,10 @@
   (check-equal? (any? '(#f #f)) #f)
   (check-equal? (any? (map positive? '(-1 -2 3))) #t)
   (check-equal? (any? (map positive? (range 2))) #t)
+
+  ;; Unit tests for chunk-by
+  (check-equal? (chunk-by eq? '(1 1 3 2 2)) '((1 1) (3) (2 2)))
+  (check-equal? (chunk-by < '(1 2 1 3 4 3)) '((1 2) (1 3 4) (3)))
 
   ;; Unit tests for chunks-of
   (check-equal? (chunks-of '(1 2 1 3 4 3) 2) '((1 2) (1 3) (4 3)))
