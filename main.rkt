@@ -29,6 +29,7 @@
   adjacent-map
   all?
   any?
+  chunk-by
   chunks-of
   generate
   increasing?
