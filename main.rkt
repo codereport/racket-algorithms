@@ -122,13 +122,13 @@
    (rest lst)))
 
 
-; TODO optimize
 (define (scanr proc lst)
-  (foldr
-   (λ (val acc)
-     (append (list (proc val (first acc))) acc))
-   (list (last lst))
-   (init lst)))
+  (foldl
+   (λ (a acc)
+     (cond ((null? acc) (cons a acc))
+           (else (cons (proc a (car acc)) acc))))
+   '()
+   (reverse lst)))
 
 
 (define (sorted? lst)
