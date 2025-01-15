@@ -101,17 +101,14 @@
   (flatten (zip-with make-list lst lst2)))
 
 
-(define (sliding lst size [step 1])
-  (define (tail-call lst)
-    (if (>= size (length lst))
-        (list lst)
-        (cons (take lst size)
-              (tail-call (drop lst step)))))
-  (cond
-    [(> step (length lst))
-      (error "step has to be equal to or smaller than length of the list")]
-    [(= step (length lst)) (list lst)]
-    [else (tail-call lst)]))
+(define (sliding xs n [step 1])
+  (let recur [(xs xs)
+              (len (length xs))]
+    (if (>= len n)
+      (cons (take xs n)
+            (recur (drop xs step)
+                   (- len step)))
+      empty)))
 
 
 (define (scanl proc lst)
