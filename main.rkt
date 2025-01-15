@@ -103,7 +103,7 @@
 
 (define (sliding xs n [step 1])
   (when (or (<= step 0) (> step (length xs)))
-    (error "step has to be positive and equal to or smaller than the length of the list"))
+    (error "step has to be equal to or smaller than the length of the list"))
 
   (let recur [(xs xs)
               (len (length xs))]
