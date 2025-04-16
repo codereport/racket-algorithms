@@ -105,15 +105,15 @@
   (when (> step (length lst))
     (error "step has to be equal to or smaller than length of the list"))
 
-  (cond ([(= step (length lst))
-          (list lst)]
-         [(let recur ([lst lst]
-                      [len (length lst)])
+  (cond [(= step (length lst))
+         (list lst)]
+        [(let recur ([lst lst]
+                     [len (length lst)])
             (if (>= size len)
                 (if (empty? lst) empty (list lst))
                 (cons (take lst size)
                       (recur (drop lst step)
-                             (- len step)))))])))
+                             (- len step)))))]))
 
 (define (scanl proc lst)
   (foldl
