@@ -102,18 +102,17 @@
 
 
 (define (sliding lst size [step 1])
-  (when (> step (length lst))
-    (error "step has to be equal to or smaller than length of the list"))
+  (define (tail-call lst)
+    (if (>= size (length lst))
+        (list lst)
+        (cons (take lst size)
+              (tail-call (drop lst step)))))
+  (cond
+    [(> step (length lst))
+      (error "step has to be equal to or smaller than length of the list")]
+    [(= step (length lst)) (list lst)]
+    [else (tail-call lst)]))
 
-  (cond [(= step (length lst))
-         (list lst)]
-        [(let recur ([lst lst]
-                     [len (length lst)])
-            (if (>= size len)
-                (if (empty? lst) empty (list lst))
-                (cons (take lst size)
-                      (recur (drop lst step)
-                             (- len step)))))]))
 
 (define (scanl proc lst)
   (foldl
