@@ -19,6 +19,7 @@ jobs:
           path: |
             ~/.cache/racket
             ~/.local/share/racket
+          key: ${{ runner.os }}-raco-${{ hashFiles('**/info.rkt') }}
          
       - name: Set up Racket
         uses: Bogdanp/setup-racket@v1.12
