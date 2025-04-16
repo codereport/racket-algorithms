@@ -6,3 +6,4 @@ compiled/
 /doc/
 scribblings/*
 !scribblings/*.scrbl
+*.kate-swp
