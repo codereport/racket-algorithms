@@ -115,13 +115,21 @@
                           (- len step)))))]))
 
 
-(define (scanl proc lst)
-  (foldl
-   (λ (val acc)
-     (append acc (list (proc val (last acc)))))
-   (list (first lst))
-   (rest lst)))
-
+(define scanl
+  (case-lambda
+    [(proc lst)
+     (scanl proc (car lst) (cdr lst))]
+    [(proc seed lst)
+     (let loop ([acc  (list seed)]
+                [val  seed]
+                [rest lst])
+       (if (empty? rest)
+           (reverse acc)
+           (let ([next (proc val (car rest))])
+             (loop (cons next acc)
+                   next
+                   (cdr rest)))))]))
+ 
 
 (define (scanr proc lst)
   (foldl
