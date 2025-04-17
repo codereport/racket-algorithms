@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: actions/cache@v2
+      - uses: actions/cache@v4.2.3
         name: Cache installed packages
         with:
           path: |
@@ -30,7 +30,14 @@ jobs:
           version: 'stable'
 
       - name: Install dependencies
-        run: raco pkg install --auto --dependencies fail
+        run: raco pkg install --auto --deps fail --name algorithms
 
       - name: Run tests
-        run: raco test .
+        run: raco test -x -p algorithms
+
+      # - name: Coverage report
+      #   if: success()
+      #   run: |
+      #     raco setup --check-pkg-deps --pkgs algorithms
+      #     raco pkg install --auto cover cover-coveralls
+      #     raco cover -b -f coveralls -d ${{ github.workspace }}/coverage .
