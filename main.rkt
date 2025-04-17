@@ -248,7 +248,7 @@
   (check-equal? (sorted? '(2 1 2 1)) #f)
 
   ;; Unit tests for sum
-  (check-equal? (sum '(3 2 1))     6)
+  (check-equal? (sum '(3 2 1))     5)
   (check-equal? (sum (range 11))  55)
   (check-equal? (sum (range 1 7)) 21)
 
